@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:17:15 by asene             #+#    #+#             */
-/*   Updated: 2024/12/17 15:05:11 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/18 11:04:29 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ rra
 Décale d’une position vers le bas tous les élements de
 la pile a. Le dernier élément devient le premier.
 */
-void	rev_rotate_a(t_stack **a)
+void	rev_rotate_a(t_vars *vars)
 {
-	rev_rotate(a);
+	rev_rotate(&vars->a);
 	ft_putendl_fd("rra", 1);
 }
 
@@ -41,15 +41,15 @@ rrb
 Décale d’une position vers le bas tous les élements de
 la pile b. Le dernier élément devient le premier.
 */
-void	rev_rotate_b(t_stack **b)
+void	rev_rotate_b(t_vars *vars)
 {
-	rev_rotate(b);
+	rev_rotate(&vars->b);
 	ft_putendl_fd("rrb", 1);
 }
 
-void	rev_rotate_both(t_stack **a, t_stack **b)
+void	rev_rotate_both(t_vars *vars)
 {
-	rev_rotate(a);
-	rev_rotate(b);
+	rev_rotate(&vars->a);
+	rev_rotate(&vars->b);
 	ft_putendl_fd("rrr", 1);
 }

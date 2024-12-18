@@ -59,7 +59,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@make -s -C libft fclean
 
-re: fclean all
+re: fclean $(NAME)
 
 bonus: $(LIBFT) $(BONUS_OBJS)
 	@cc $(FLAGS) -o checker $(BONUS_OBJS) $(LIBFT)

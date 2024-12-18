@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:15:57 by asene             #+#    #+#             */
-/*   Updated: 2024/12/17 14:44:40 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/18 14:13:40 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,28 @@ void	lstadd_front(t_stack **lst, t_stack *new)
 	t_stack	*first;
 
 	if (*lst == NULL)
-		return (*lst = new, (void)0);
+	{
+		*lst = new;
+		(*lst)->prev = NULL;
+		(*lst)->next = NULL;
+		return ;
+	}
 	first = lst_first(*lst);
 	first->prev = new;
 	new->next = first;
+	*lst = new;
 }
 void	lstadd_back(t_stack **lst, t_stack *new)
 {
 	t_stack	*last;
 
 	if (*lst == NULL)
-		return (*lst = new, (void)0);
+	{
+		*lst = new;
+		(*lst)->prev = NULL;
+		(*lst)->next = NULL;
+		return ;
+	}
 	last = lst_last(*lst);
 	last->next = new;
 	new->prev = last;
