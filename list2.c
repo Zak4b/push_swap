@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:39:54 by asene             #+#    #+#             */
-/*   Updated: 2024/12/18 15:42:49 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:59:14 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	lst_size(t_stack *s)
 	i = 0;
 	while (s)
 	{
-		s = s->prev;
+		s = s->next;
 		i++;
 	}
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:02:29 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 11:37:48 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:43:39 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_vars
 	int		size;
 	t_stack	*a;
 	t_stack	*b;
-	t_stack	*sorted;
+	int		*sorted;
 	int		n_piv;
 	int		*pivots;
 }	t_vars;

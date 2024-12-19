@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:15:20 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 11:30:06 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 13:19:02 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,44 @@ int	elem_by_pos(t_stack *s, int pos)
 
 void	sort_3(t_vars *vars)
 {
-	if (vars->a->n > vars->a->next->n && vars->a->n > vars->a->next->next->n)
+	int	elems[3];
+
+	elems[0] = elem_by_pos(vars->a, 0);
+	elems[1] = elem_by_pos(vars->a, 1);
+	elems[2] = elem_by_pos(vars->a, 2);
+	if (elems[0] > elems[1] && elems[0] > elems[2])
 		rotate_a(vars);
-	else if (vars->a->next->n > vars->a->n && vars->a->next->n > vars->a->next->next->n)
+	else if (elems[1] > elems[0] && elems[1] > elems[2])
 		rev_rotate_a(vars);
-	if (vars->a->n > vars->a->next->n)
+	if (elem_by_pos(vars->a, 0) > elem_by_pos(vars->a, 1))
 		swap_a(vars);
+}
+
+void	sort_4_to_5(t_vars *vars)
+{
+	int	current;
+	int	i;
+
+	i = vars->size - 3;
+	while (i > 0)
+	{
+		current = vars->a->n;
+		if (current == vars->sorted[0] || ((vars->size == 5) && current == vars->sorted[1]))
+		{
+			push_to_b(vars);
+			i--;
+		}
+		else
+			rotate_a(vars);
+	}
+	sort_3(vars);
+	if (vars->size == 5)
+	{
+		if (vars->b->n < vars->b->next->n)
+			swap_b(vars);
+		push_to_a(vars);
+	}
+	push_to_a(vars);
 }
 
 void	sort_stack(t_vars *vars)
@@ -42,27 +74,15 @@ void	sort_stack(t_vars *vars)
 		return (swap_a(vars));
 	else if (vars->size == 3)
 		return (sort_3(vars));
+	else if (vars->size >= 4 && vars->size <= 5)
+		return (sort_4_to_5(vars));
 	vars->n_piv = 14;
 	vars->pivots = ft_calloc(vars->n_piv, sizeof(int));
 	i = 0;
 	while (i < vars->n_piv)
 	{
-		vars->pivots[i] = elem_by_pos(vars->sorted, (vars->size * i / vars->n_piv));
+		vars->pivots[i] = vars->sorted[vars->size * i / vars->n_piv];
 		i++;
 	}
 	i = 0;
 }
-/*
-int	f_nearest(t_stack *stack, int min, int max)
-{
-	int	highest;
-	int	lowest;
-
-	highest = f_pos(stack->first, f_high_low(stack, min, max, 0));
-	lowest = f_pos(stack->first, f_high_low(stack, min, max, 1)) + 1;
-	if ((highest < reverse_h && highest < reverse_l)
-		|| (lowest < reverse_h && lowest < reverse_l))
-		return (1);
-	return (0);
-}
-*/
