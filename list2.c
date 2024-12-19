@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:39:54 by asene             #+#    #+#             */
-/*   Updated: 2024/12/18 14:33:49 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/18 15:42:49 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,14 @@ int	is_sorted(t_stack *s)
 	while (s && (!s->next || (s->next && s->n < s->next->n)))
 		s = s->next;
 	return (s == NULL);
+}
+
+void	print_stack(t_stack *s)
+{
+	while (s)
+	{
+		ft_printf("%d -> ", s->n);
+		s = s->next;
+	}
+	ft_putstr_fd("NULL\n", 1);
 }

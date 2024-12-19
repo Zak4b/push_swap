@@ -12,19 +12,12 @@ SOURCES = \
         main.c \
 		list.c \
 		list2.c \
+		utils.c \
 		push.c \
 		swap.c \
 		rotate.c \
-		reverse_rotate.c
-
-SOURCES = \
-        main.c \
-		list.c \
-		list2.c \
-		push.c \
-		swap.c \
-		rotate.c \
-		reverse_rotate.c
+		reverse_rotate.c \
+		sort.c 
 
 BONUS_SOURCES = $(filter-out main.c, $(SOURCES)) checker.c
 
