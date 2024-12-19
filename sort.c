@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:15:20 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 14:25:37 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 16:16:50 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,14 @@ void	messy_sort(t_vars *vars)
 	int	c[2];
 	int	num[2];
 
-	c[0] = vars->size / 2;
 	c[1] = (vars->size + 1) / 2;
+	c[0] = c[1] - 1;
 	while (lst_size(vars->a) > 0)
 	{
-		num[0] = vars->sorted[c[0]];
-		num[1] = vars->sorted[c[1]];
+		if (c[0] >= 0)
+			num[0] = vars->sorted[c[0]];
+		if (c[1] < vars->size)
+			num[1] = vars->sorted[c[1]];
 		if (vars->a->n == num[1])
 		{
 			push_to_b(vars);
@@ -92,10 +94,61 @@ void	messy_sort(t_vars *vars)
 		push_to_a(vars);
 }
 
+void	group_sort(t_vars *vars)
+{	
+	int	i;
+	int	group_id;
+	int count[8] = {0};
+	int exee;
+
+	i = 0;
+	vars->pivots = ft_calloc(vars->n_piv, sizeof(int));
+	while (i < vars->n_piv)
+	{
+		exee = (vars->size - 1) * i / (vars->n_piv - 1);
+		vars->pivots[i] = vars->sorted[(vars->size - 1) * i / (vars->n_piv - 1)];
+		i++;
+	}
+	vars->pivots[vars->n_piv - 1]++;
+	i = 0;
+	group_id = 0;
+	while (i < vars->size)
+	{
+		if (vars->sorted[i] >= vars->pivots[group_id] && vars->sorted[i] < vars->pivots[group_id + 1])
+		{
+			count[group_id]++;
+		}
+		else if (vars->sorted[i] == vars->pivots[group_id + 1])
+		{
+			group_id++;
+			continue ;
+		}
+		i++;
+	}
+	
+	int g1 = 3, g2 = 4;
+	while (count[g1] > 0 || count[g2] > 0)
+	{
+		if (vars->a->n >= vars->pivots[g1] && vars->a->n < vars->pivots[g1 + 1])
+		{
+			push_to_b(vars);
+			if (--count[g1] == 0 && g1 > 0)
+				g1--;
+		}
+		if (vars->a->n >= vars->pivots[g2] && vars->a->n < vars->pivots[g2 + 1])
+		{
+			push_to_b(vars);
+			rotate_b(vars);
+			if (--count[g2] == 0 && g2 < 7)
+				g2++;
+		}
+		rotate_a(vars);
+	}
+	
+}
+
 void	sort_stack(t_vars *vars)
 {
-	int	i;
-
 	if (is_sorted(vars->a))
 		return ;
 	if (vars->size == 2)
@@ -104,15 +157,11 @@ void	sort_stack(t_vars *vars)
 		return (sort_3(vars));
 	else if (vars->size <= 5)
 		return (sort_4_to_5(vars));
-	else if (vars->size <= 99)
-		messy_sort(vars);
-	vars->n_piv = 14;
-	vars->pivots = ft_calloc(vars->n_piv, sizeof(int));
-	i = 0;
-	while (i < vars->n_piv)
-	{
-		vars->pivots[i] = vars->sorted[vars->size * i / vars->n_piv];
-		i++;
-	}
-	i = 0;
+	else if (vars->size < 100)
+		return (messy_sort(vars));
+	else if (vars->size < 500)
+		vars->n_piv = 9;
+	else
+		vars->n_piv = 15;
+	group_sort(vars);
 }
