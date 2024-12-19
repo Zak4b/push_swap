@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:38:25 by asene             #+#    #+#             */
-/*   Updated: 2024/12/18 13:44:52 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 19:50:39 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	push(t_stack **from, t_stack **to)
 {
-	t_stack *first;
+	t_stack	*first;
+
 	if (!*from)
 		return ;
 	first = (*from)->next;

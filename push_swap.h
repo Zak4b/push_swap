@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:02:29 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 14:33:55 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 22:03:19 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_vars
 	t_stack	*b;
 	int		count_b;
 	int		*sorted;
-	int		n_piv;
-	int		*pivots;
+	int		n_group;
+	int		*bounds;
 }	t_vars;
 
 int			check_atoi(int n, char *s);
@@ -60,8 +60,11 @@ void		swap_b(t_vars *vars);
 void		swap_both(t_vars *vars);
 
 
-void	print_stack(t_stack *s);
+void		print_stack(t_stack *s);
 
-void sort_stack(t_vars *vars);
+void		sort_stack(t_vars *vars);
+void		group_sort(t_vars *vars);
 
+int			find_pos(t_stack *s, int value);
+int			get_sorted_pos(t_vars *vars, int value);
 #endif

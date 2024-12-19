@@ -17,7 +17,9 @@ SOURCES = \
 		swap.c \
 		rotate.c \
 		reverse_rotate.c \
-		sort.c 
+		sort.c \
+		group_sort.c \
+		groups.c
 
 BONUS_SOURCES = $(filter-out main.c, $(SOURCES)) checker.c
 
@@ -56,5 +58,29 @@ re: fclean $(NAME)
 
 bonus: $(LIBFT) $(BONUS_OBJS)
 	@cc $(FLAGS) -o checker $(BONUS_OBJS) $(LIBFT)
+
+test_input: $(NAME)
+	@ARG="-8 -12"; ./push_swap $$ARG
+
+test2: $(NAME)
+	@ARG="-8 -12"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+	@ARG="4 21"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+test3: $(NAME)
+	@ARG="1 2 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+	@ARG="3 2 1"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+	@ARG="1 3 2"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+test4: $(NAME)
+	@ARG="4 2 1 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+	@ARG="1 2 4 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+test5: $(NAME)
+	@ARG="5 4 2 1 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+	@ARG="1 2 5 4 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+test100: $(NAME)
+	@ARG="$(shell seq 100 | shuf | tr '\n' ' ')"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+test500: $(NAME)
+	@ARG="$(shell seq 500  | shuf | tr '\n' ' ')"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+test: test2 test3 test4 test5 test100
+	@for i in $$(seq 10); do make -s test100; done
+	@for i in $$(seq 10); do make -s test500; done
 
 .PHONY: all clean fclean re

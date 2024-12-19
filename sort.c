@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:15:20 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 16:16:50 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 20:36:58 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	sort_4_to_5(t_vars *vars)
 	while (i > 0)
 	{
 		current = vars->a->n;
-		if (current == vars->sorted[0] || ((vars->size == 5) && current == vars->sorted[1]))
+		if (current == vars->sorted[0] || ((vars->size == 5)
+				&& current == vars->sorted[1]))
 		{
 			push_to_b(vars);
 			i--;
@@ -94,59 +95,6 @@ void	messy_sort(t_vars *vars)
 		push_to_a(vars);
 }
 
-void	group_sort(t_vars *vars)
-{	
-	int	i;
-	int	group_id;
-	int count[8] = {0};
-	int exee;
-
-	i = 0;
-	vars->pivots = ft_calloc(vars->n_piv, sizeof(int));
-	while (i < vars->n_piv)
-	{
-		exee = (vars->size - 1) * i / (vars->n_piv - 1);
-		vars->pivots[i] = vars->sorted[(vars->size - 1) * i / (vars->n_piv - 1)];
-		i++;
-	}
-	vars->pivots[vars->n_piv - 1]++;
-	i = 0;
-	group_id = 0;
-	while (i < vars->size)
-	{
-		if (vars->sorted[i] >= vars->pivots[group_id] && vars->sorted[i] < vars->pivots[group_id + 1])
-		{
-			count[group_id]++;
-		}
-		else if (vars->sorted[i] == vars->pivots[group_id + 1])
-		{
-			group_id++;
-			continue ;
-		}
-		i++;
-	}
-	
-	int g1 = 3, g2 = 4;
-	while (count[g1] > 0 || count[g2] > 0)
-	{
-		if (vars->a->n >= vars->pivots[g1] && vars->a->n < vars->pivots[g1 + 1])
-		{
-			push_to_b(vars);
-			if (--count[g1] == 0 && g1 > 0)
-				g1--;
-		}
-		if (vars->a->n >= vars->pivots[g2] && vars->a->n < vars->pivots[g2 + 1])
-		{
-			push_to_b(vars);
-			rotate_b(vars);
-			if (--count[g2] == 0 && g2 < 7)
-				g2++;
-		}
-		rotate_a(vars);
-	}
-	
-}
-
 void	sort_stack(t_vars *vars)
 {
 	if (is_sorted(vars->a))
@@ -160,8 +108,8 @@ void	sort_stack(t_vars *vars)
 	else if (vars->size < 100)
 		return (messy_sort(vars));
 	else if (vars->size < 500)
-		vars->n_piv = 9;
+		vars->n_group = 8;
 	else
-		vars->n_piv = 15;
+		vars->n_group = 14;
 	group_sort(vars);
 }

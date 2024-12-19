@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:15:57 by asene             #+#    #+#             */
-/*   Updated: 2024/12/18 14:13:40 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 19:49:37 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	lstadd_front(t_stack **lst, t_stack *new)
 	new->next = first;
 	*lst = new;
 }
+
 void	lstadd_back(t_stack **lst, t_stack *new)
 {
 	t_stack	*last;
@@ -82,7 +83,7 @@ int	lst_insert_sort(t_stack **lst, t_stack *new)
 		{
 			new->next = l->next;
 			if (l->next)
-				l->next->prev = new; 
+				l->next->prev = new;
 			new->prev = l;
 			l->next = new;
 			return (1);
