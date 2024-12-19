@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:17:15 by asene             #+#    #+#             */
-/*   Updated: 2024/12/18 11:04:29 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 11:35:33 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	rev_rotate(t_stack **s)
 	last->prev = NULL;
 	(*s)->prev = last;
 	new_last->next = NULL;
+	*s = last;
 }
 
 /*
