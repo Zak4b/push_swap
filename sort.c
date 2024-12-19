@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:15:20 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 13:19:02 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:25:37 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,34 @@ void	sort_4_to_5(t_vars *vars)
 	push_to_a(vars);
 }
 
+void	messy_sort(t_vars *vars)
+{
+	int	c[2];
+	int	num[2];
+
+	c[0] = vars->size / 2;
+	c[1] = (vars->size + 1) / 2;
+	while (lst_size(vars->a) > 0)
+	{
+		num[0] = vars->sorted[c[0]];
+		num[1] = vars->sorted[c[1]];
+		if (vars->a->n == num[1])
+		{
+			push_to_b(vars);
+			c[1]++;
+		}
+		else if (vars->a->n == num[0])
+		{
+			push_to_b(vars);
+			rotate_b(vars);
+			c[0]--;
+		}
+		rotate_a(vars);
+	}
+	while (vars->b != NULL)
+		push_to_a(vars);
+}
+
 void	sort_stack(t_vars *vars)
 {
 	int	i;
@@ -74,8 +102,10 @@ void	sort_stack(t_vars *vars)
 		return (swap_a(vars));
 	else if (vars->size == 3)
 		return (sort_3(vars));
-	else if (vars->size >= 4 && vars->size <= 5)
+	else if (vars->size <= 5)
 		return (sort_4_to_5(vars));
+	else if (vars->size <= 99)
+		messy_sort(vars);
 	vars->n_piv = 14;
 	vars->pivots = ft_calloc(vars->n_piv, sizeof(int));
 	i = 0;

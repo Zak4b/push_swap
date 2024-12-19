@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:17:15 by asene             #+#    #+#             */
-/*   Updated: 2024/12/18 13:00:33 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/19 14:14:23 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	rotate(t_stack **s)
 {
 	t_stack	*first;
 
+	if (lst_size(*s) <= 1)
+		return ;
 	first = (*s)->next;
 	first->prev = NULL;
 	(*s)->prev  = lst_last(*s);
