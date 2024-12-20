@@ -5,28 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/17 15:20:55 by asene             #+#    #+#             */
-/*   Updated: 2024/12/17 15:22:36 by asene            ###   ########.fr       */
+/*   Created: 2024/12/16 14:01:38 by asene             #+#    #+#             */
+/*   Updated: 2024/12/20 10:55:11 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+void	init_vars(t_vars *vars)
 {
-	int		i, n;
-	t_stack *a = NULL;
-	t_stack *b = NULL;
+	vars->size = 0;
+	vars->a = NULL;
+	vars->count_a = 0;
+	vars->b = NULL;
+	vars->count_b = 0;
+	vars->sorted = NULL;
+	vars->n_group = 0;
+	vars->bounds = NULL;
+}
 
+void	fill_stack(int argc, char **argv, t_vars *vars)
+{
+	int		i;
+	int		n;
+	t_stack	*sorted;
+
+	sorted = NULL;
 	i = 1;
 	while (i < argc)
 	{
 		n = ft_atoi(argv[i]);
 		if (check_atoi(n, argv[i]) == 0)
-			return (ft_fprintf(2, "Error\n"), 1);
-		lstadd_back(&a, lst_new(n));
-		if (lst_insert_sort(&dup, lst_new(n)) == 0)
-			return (ft_printf("Dup\n"), 1);
+		{
+			ft_printf("%d %s", n, argv[i]);
+		}
+		lstadd_back(&vars->a, lst_new(n));
+		if (lst_insert_sort(&sorted, lst_new(n)) == 0)
+		{
+			
+		}
 		i++;
+		vars->size++;
 	}
+	vars->count_a = vars->size;
+	vars->sorted = stack_to_array(sorted);
+	lst_clear(&sorted);
+}
+
+int	main(int argc, char **argv)
+{
+	t_vars	vars;
+
+	init_vars(&vars);
+	fill_stack(argc, argv, &vars);
+
+	lst_clear(&vars.a);
+	lst_clear(&vars.b);
+	free(vars.sorted);
 }

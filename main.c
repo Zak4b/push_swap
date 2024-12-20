@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:01:38 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 20:46:35 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/20 10:45:17 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,5 @@ int	main(int argc, char **argv)
 
 	lst_clear(&vars.a);
 	lst_clear(&vars.b);
+	free(vars.sorted);
 }

@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:55:27 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 23:04:27 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/20 10:57:31 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	pull_group(t_vars *vars, int group_id)
 {
 	t_stack	*min;
 	t_stack	*max;
-	int	min_pos;
-	int	max_pos;
+	int		min_pos;
+	int		max_pos;
 
 	while (1)
 	{
@@ -116,4 +116,5 @@ void	group_sort(t_vars *vars)
 		while (!is_sorted(vars->a))
 			rev_rotate_a(vars);
 	}
+	free(vars->bounds);
 }

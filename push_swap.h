@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:02:29 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 22:03:19 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/20 10:56:12 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_stack
 {
 	struct s_stack	*prev;
 	struct s_stack	*next;
-	int		n;
+	int				n;
 }	t_stack;
 
 typedef struct s_vars
@@ -58,7 +58,6 @@ void		rev_rotate_both(t_vars *vars);
 void		swap_a(t_vars *vars);
 void		swap_b(t_vars *vars);
 void		swap_both(t_vars *vars);
-
 
 void		print_stack(t_stack *s);
 

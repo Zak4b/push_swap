@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:17:15 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 11:35:33 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/20 10:50:38 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,12 @@ void	rev_rotate(t_stack **s)
 	*s = last;
 }
 
-/*
-rra
-Décale d’une position vers le bas tous les élements de
-la pile a. Le dernier élément devient le premier.
-*/
 void	rev_rotate_a(t_vars *vars)
 {
 	rev_rotate(&vars->a);
 	ft_putendl_fd("rra", 1);
 }
 
-/*
-rrb
-Décale d’une position vers le bas tous les élements de
-la pile b. Le dernier élément devient le premier.
-*/
 void	rev_rotate_b(t_vars *vars)
 {
 	rev_rotate(&vars->b);

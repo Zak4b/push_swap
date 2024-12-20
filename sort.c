@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:15:20 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 20:36:58 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/20 10:59:51 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,36 +65,6 @@ void	sort_4_to_5(t_vars *vars)
 	push_to_a(vars);
 }
 
-void	messy_sort(t_vars *vars)
-{
-	int	c[2];
-	int	num[2];
-
-	c[1] = (vars->size + 1) / 2;
-	c[0] = c[1] - 1;
-	while (lst_size(vars->a) > 0)
-	{
-		if (c[0] >= 0)
-			num[0] = vars->sorted[c[0]];
-		if (c[1] < vars->size)
-			num[1] = vars->sorted[c[1]];
-		if (vars->a->n == num[1])
-		{
-			push_to_b(vars);
-			c[1]++;
-		}
-		else if (vars->a->n == num[0])
-		{
-			push_to_b(vars);
-			rotate_b(vars);
-			c[0]--;
-		}
-		rotate_a(vars);
-	}
-	while (vars->b != NULL)
-		push_to_a(vars);
-}
-
 void	sort_stack(t_vars *vars)
 {
 	if (is_sorted(vars->a))
@@ -106,7 +76,7 @@ void	sort_stack(t_vars *vars)
 	else if (vars->size <= 5)
 		return (sort_4_to_5(vars));
 	else if (vars->size < 100)
-		return (messy_sort(vars));
+		vars->n_group = 2;
 	else if (vars->size < 500)
 		vars->n_group = 8;
 	else

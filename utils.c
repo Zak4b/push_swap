@@ -6,12 +6,11 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:37:06 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 22:03:05 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/20 10:56:33 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 
 int	check_atoi(int n, char *s)
 {
