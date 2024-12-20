@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:01:38 by asene             #+#    #+#             */
-/*   Updated: 2024/12/20 11:36:02 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/20 12:00:19 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	fill_stack(int argc, char **argv, t_vars *vars)
 	int		i;
 	int		n;
 	t_stack	*sorted;
+	t_stack	*e;
 
 	sorted = NULL;
 	i = 1;
@@ -65,9 +66,10 @@ void	fill_stack(int argc, char **argv, t_vars *vars)
 			return (ft_fprintf(2, "Error\nValue \"%s\" is not a valid int\n",
 					argv[i]), lst_clear(&sorted), clean_exit(vars, 1));
 		lstadd_back(&vars->a, lst_new(n));
-		if (lst_insert_sort(&sorted, lst_new(n)) == 0)
+		e = lst_new(n);
+		if (lst_insert_sort(&sorted, e) == 0)
 			return (ft_fprintf(2, "Error\nDuplicate value \"%d\"\n",
-					n), lst_clear(&sorted), clean_exit(vars, 1));
+					n), free(e), lst_clear(&sorted), clean_exit(vars, 1));
 		i++;
 		vars->size++;
 	}
