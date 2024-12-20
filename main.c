@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:01:38 by asene             #+#    #+#             */
-/*   Updated: 2024/12/20 10:45:17 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/20 11:36:02 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ int	*stack_to_array(t_stack *s)
 	return (array);
 }
 
+void	clean_exit(t_vars *vars, int exit_code)
+{
+	lst_clear(&vars->a);
+	lst_clear(&vars->b);
+	free(vars->sorted);
+	exit(exit_code);
+}
+
 void	fill_stack(int argc, char **argv, t_vars *vars)
 {
 	int		i;
@@ -54,14 +62,12 @@ void	fill_stack(int argc, char **argv, t_vars *vars)
 	{
 		n = ft_atoi(argv[i]);
 		if (check_atoi(n, argv[i]) == 0)
-		{
-			ft_printf("%d %s", n, argv[i]);
-		}
+			return (ft_fprintf(2, "Error\nValue \"%s\" is not a valid int\n",
+					argv[i]), lst_clear(&sorted), clean_exit(vars, 1));
 		lstadd_back(&vars->a, lst_new(n));
 		if (lst_insert_sort(&sorted, lst_new(n)) == 0)
-		{
-			
-		}
+			return (ft_fprintf(2, "Error\nDuplicate value \"%d\"\n",
+					n), lst_clear(&sorted), clean_exit(vars, 1));
 		i++;
 		vars->size++;
 	}
@@ -77,8 +83,5 @@ int	main(int argc, char **argv)
 	init_vars(&vars);
 	fill_stack(argc, argv, &vars);
 	sort_stack(&vars);
-
-	lst_clear(&vars.a);
-	lst_clear(&vars.b);
-	free(vars.sorted);
+	clean_exit(&vars, EXIT_SUCCESS);
 }
