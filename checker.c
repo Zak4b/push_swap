@@ -6,12 +6,12 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:01:38 by asene             #+#    #+#             */
-/*   Updated: 2024/12/20 10:55:11 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/20 11:36:50 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+/*
 void	init_vars(t_vars *vars)
 {
 	vars->size = 0;
@@ -63,3 +63,4 @@ int	main(int argc, char **argv)
 	lst_clear(&vars.b);
 	free(vars.sorted);
 }
+*/
