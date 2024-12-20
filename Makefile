@@ -2,6 +2,7 @@ NAME = push_swap
 
 GREEN = \033[32m
 RED = \033[31m
+YELLOW = \033[0;33m
 RESET = \033[0m
 
 LIBFT = libft/libft.a
@@ -75,12 +76,38 @@ test4: $(NAME)
 test5: $(NAME)
 	@ARG="5 4 2 1 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
 	@ARG="1 2 5 4 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
-test100: $(NAME)
-	@ARG="$(shell seq 100 | shuf | tr '\n' ' ')"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
-test500: $(NAME)
-	@ARG="$(shell seq 500  | shuf | tr '\n' ' ')"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
-test: test2 test3 test4 test5 test100
-	@for i in $$(seq 10); do make -s test100; done
-	@for i in $$(seq 10); do make -s test500; done
+run_tests: $(NAME)
+	@echo "$(YELLOW)Testing $(SIZE) values$(RESET)"
+	@for i in $$(seq $(COUNT)); do \
+		ARG="`seq $(SIZE) | shuf | tr '\n' ' '`"; \
+		result=$$(./push_swap $$ARG | ./.tools/checker_linux $$ARG); \
+		if [ "$$result" = "OK" ]; then \
+			echo -n "$(GREEN)$$result $(RESET)"; \
+		else \
+			echo -n "$(RED)$$result $(RESET)"; \
+		fi; \
+	done; echo
+
+run_bench: $(NAME)
+	@echo "$(YELLOW)Performance on $(SIZE) values$(RESET)"
+	@total=0; max=0; min=999999; \
+	for i in $$(seq $(COUNT)); do \
+		ARG="`seq $(SIZE) | shuf | tr '\n' ' '`"; \
+		lines=$$(./push_swap $$ARG | wc -l); \
+		total=$$((total + lines)); \
+		if [ $$lines -gt $$max ]; then max=$$lines; fi; \
+		if [ $$lines -lt $$min ]; then min=$$lines; fi; \
+	done; \
+	average=$$((total / $(COUNT))); \
+	echo "Minimum: $$min lines"; \
+	echo "Average: $$average lines"; \
+	echo "Maximum: $$max lines";
+
+test: $(NAME) test2 test3 test4 test5
+	@make -s run_tests SIZE=100 COUNT=10
+	@make -s run_tests SIZE=500 COUNT=10
+bench:
+	@make -s run_bench SIZE=100 COUNT=100
+	@make -s run_bench SIZE=500 COUNT=50
 
 .PHONY: all clean fclean re
