@@ -6,11 +6,25 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 21:54:47 by asene             #+#    #+#             */
-/*   Updated: 2024/12/19 22:06:35 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/21 14:50:04 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "groups.h"
+
+void	set_bounds(t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	vars->bounds = ft_calloc(vars->n_group + 1, sizeof(int));
+	while (i <= vars->n_group)
+	{
+		vars->bounds[i] = vars->sorted[(vars->size - 1) * i / vars->n_group];
+		i++;
+	}
+	vars->bounds[vars->n_group]++;
+}
 
 int	is_in_group(t_vars *vars, int value, int group)
 {

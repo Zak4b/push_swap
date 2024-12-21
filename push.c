@@ -6,35 +6,44 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:38:25 by asene             #+#    #+#             */
-/*   Updated: 2024/12/20 10:55:51 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/21 15:07:41 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push(t_stack **from, t_stack **to)
+int	push(t_stack **from, t_stack **to)
 {
 	t_stack	*first;
 
 	if (!*from)
-		return ;
+		return (0);
 	first = (*from)->next;
 	if (first)
 		first->prev = NULL;
 	else
 		first = NULL;
-	lstadd_front(to, *from);
+	stack_add_front(to, *from);
 	*from = first;
+	return (1);
 }
 
 void	push_to_a(t_vars *vars)
 {
-	push(&vars->b, &vars->a);
+	if (push(&vars->b, &vars->a))
+	{
+		vars->count_a++;
+		vars->count_b--;
+	}
 	ft_putendl_fd("pa", 1);
 }
 
 void	push_to_b(t_vars *vars)
 {
-	push(&vars->a, &vars->b);
+	if (push(&vars->a, &vars->b))
+	{
+		vars->count_b++;
+		vars->count_a--;
+	}
 	ft_putendl_fd("pb", 1);
 }

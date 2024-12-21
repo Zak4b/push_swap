@@ -6,25 +6,40 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 19:55:27 by asene             #+#    #+#             */
-/*   Updated: 2024/12/20 10:57:31 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/21 16:05:30 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "groups.h"
 
-void	set_bounds(t_vars *vars)
+void	rotate_to_next(t_vars *vars, int group_1, int group_2)
 {
-	int	i;
+	t_stack	*s1;
+	t_stack	*s2;
+	int		p1;
+	int		p2;
 
-	i = 0;
-	vars->bounds = ft_calloc(vars->n_group + 1, sizeof(int));
-	while (i <= vars->n_group)
+	s1 = vars->a;
+	p1 = 0;
+	while (s1 && !is_in_group(vars, s1->n, group_1)
+		&& !is_in_group(vars, s1->n, group_2))
 	{
-		vars->bounds[i] = vars->sorted[(vars->size - 1) * i / vars->n_group];
-		i++;
+		s1 = s1->next;
+		p1++;
 	}
-	vars->bounds[vars->n_group]++;
+	if (!s1)
+		return ;
+	s2 = stack_last(s1);
+	p2 = vars->count_a - 1;
+	while (s2 && !is_in_group(vars, s2->n, group_1)
+		&& !is_in_group(vars, s2->n, group_2))
+	{
+		s2 = s2->prev;
+		p2--;
+	}
+	if (s2)
+		smart_rotate_a(vars, p1, p2);
 }
 
 void	push_by_group(t_vars *vars)
@@ -56,29 +71,6 @@ void	push_by_group(t_vars *vars)
 	}
 }
 
-void	smart_rotate(t_vars *vars, t_stack *s, int rot_1, int rot_2)
-{
-	int	temp;
-	int	stack_size;
-
-	stack_size = lst_size(s);
-	if (rot_1 > rot_2)
-	{
-		temp = rot_1;
-		rot_1 = rot_2;
-		rot_2 = temp;
-	}
-	if (rot_2 > stack_size / 2)
-	{
-		rot_2 = stack_size - rot_2;
-		while (rot_2-- > 0)
-			rev_rotate_b(vars);
-	}
-	else
-		while (rot_1-- > 0)
-			rotate_b(vars);
-}
-
 void	pull_group(t_vars *vars, int group_id)
 {
 	t_stack	*min;
@@ -96,7 +88,7 @@ void	pull_group(t_vars *vars, int group_id)
 		max_pos = find_pos(vars->b, max->n);
 		if (min_pos == -1 || max_pos == -1)
 			break ;
-		smart_rotate(vars, vars->b, min_pos, max_pos);
+		smart_rotate_b(vars, min_pos, max_pos);
 		push_to_a(vars);
 		if (vars->a->n == min->n)
 			rotate_a(vars);

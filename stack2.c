@@ -6,27 +6,29 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:39:54 by asene             #+#    #+#             */
-/*   Updated: 2024/12/20 10:51:25 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/21 15:16:46 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*lst_first(t_stack *lst)
+t_stack	*stack_first(t_stack *stack)
 {
-	while (lst->prev)
-		lst = lst->prev;
-	return (lst);
+	if (stack)
+		while (stack->prev)
+			stack = stack->prev;
+	return (stack);
 }
 
-t_stack	*lst_last(t_stack *lst)
+t_stack	*stack_last(t_stack *stack)
 {
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	if (stack)
+		while (stack->next)
+			stack = stack->next;
+	return (stack);
 }
 
-int	lst_size(t_stack *s)
+int	stack_size(t_stack *s)
 {
 	int	i;
 

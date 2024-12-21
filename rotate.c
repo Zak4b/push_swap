@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 11:17:15 by asene             #+#    #+#             */
-/*   Updated: 2024/12/20 10:51:15 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/21 15:18:14 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 void	rotate(t_stack **s)
 {
-	t_stack	*first;
+	t_stack	*new_first;
 
-	if (lst_size(*s) <= 1)
+	if (*s == NULL || (*s)->next == NULL)
 		return ;
-	first = (*s)->next;
-	first->prev = NULL;
-	(*s)->prev = lst_last(*s);
+	new_first = (*s)->next;
+	new_first->prev = NULL;
+	(*s)->prev = stack_last(*s);
 	(*s)->prev->next = *s;
 	(*s)->next = NULL;
-	*s = first;
+	*s = new_first;
 }
 
 void	rotate_a(t_vars *vars)
 {
-	rotate(&vars->a);
+	if (vars->count_a > 1)
+		rotate(&vars->a);
 	ft_putendl_fd("ra", 1);
 }
 
 void	rotate_b(t_vars *vars)
 {
-	rotate(&vars->b);
+	if (vars->count_b > 1)
+		rotate(&vars->b);
 	ft_putendl_fd("rb", 1);
 }
 

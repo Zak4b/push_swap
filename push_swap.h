@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:02:29 by asene             #+#    #+#             */
-/*   Updated: 2024/12/20 10:56:12 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/21 15:39:51 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,16 @@ typedef struct s_vars
 	int		*bounds;
 }	t_vars;
 
-int			check_atoi(int n, char *s);
-
-t_stack		*lst_new(int n);
-void		lst_clear(t_stack **lst);
-void		lstadd_front(t_stack **lst, t_stack *new);
-void		lstadd_back(t_stack **lst, t_stack *new);
-int			lst_insert_sort(t_stack **lst, t_stack *new);
-t_stack		*lst_first(t_stack *lst);
-t_stack		*lst_last(t_stack *lst);
-int			lst_size(t_stack *s);
+t_stack		*stack_new(int n);
+void		stack_clear(t_stack **stack);
+void		stack_add_front(t_stack **stack, t_stack *new);
+void		stack_add_back(t_stack **stack, t_stack *new);
+int			stack_insert_sort(t_stack **stack, t_stack *new);
+t_stack		*stack_first(t_stack *stack);
+t_stack		*stack_last(t_stack *stack);
+int			stack_size(t_stack *s);
 int			is_sorted(t_stack *s);
+void		print_stack(t_stack *s);
 
 void		push_to_a(t_vars *vars);
 void		push_to_b(t_vars *vars);
@@ -59,11 +58,12 @@ void		swap_a(t_vars *vars);
 void		swap_b(t_vars *vars);
 void		swap_both(t_vars *vars);
 
-void		print_stack(t_stack *s);
-
 void		sort_stack(t_vars *vars);
 void		group_sort(t_vars *vars);
 
+int			check_atoi(int n, char *s);
 int			find_pos(t_stack *s, int value);
 int			get_sorted_pos(t_vars *vars, int value);
+void		smart_rotate_a(t_vars *vars, int rot_1, int rot_2);
+void		smart_rotate_b(t_vars *vars, int rot_1, int rot_2);
 #endif

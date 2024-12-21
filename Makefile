@@ -11,8 +11,8 @@ FLAGS = -Wall -Wextra -Werror -g
 
 SOURCES = \
         main.c \
-		list.c \
-		list2.c \
+		stack.c \
+		stack2.c \
 		utils.c \
 		push.c \
 		swap.c \
