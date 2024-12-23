@@ -1,4 +1,5 @@
 NAME = push_swap
+CHECKER_PATH = ./.tools/checker_linux
 
 GREEN = \033[32m
 RED = \033[31m
@@ -58,29 +59,29 @@ fclean: clean
 re: fclean $(NAME)
 
 bonus: $(LIBFT) $(BONUS_OBJS)
-	@cc $(FLAGS) -o checker $(BONUS_OBJS) $(LIBFT)
+	cc $(FLAGS) -o checker -D DISPLAY_INSTRUCTIONS=0 $(BONUS_OBJS) $(LIBFT)
 
 test_input: $(NAME)
-	@ARG="-8 -12"; ./push_swap $$ARG
+	@ARG="-8 -12"; ./$(NAME) $$ARG
 
 test2: $(NAME)
-	@ARG="-8 -12"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
-	@ARG="4 21"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+	@ARG="-8 -12"; ./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG
+	@ARG="4 21"; ./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG
 test3: $(NAME)
-	@ARG="1 2 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
-	@ARG="3 2 1"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
-	@ARG="1 3 2"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+	@ARG="1 2 3"; ./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG
+	@ARG="3 2 1"; ./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG
+	@ARG="1 3 2"; ./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG
 test4: $(NAME)
-	@ARG="4 2 1 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
-	@ARG="1 2 4 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+	@ARG="4 2 1 3"; ./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG
+	@ARG="1 2 4 3"; ./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG
 test5: $(NAME)
-	@ARG="5 4 2 1 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
-	@ARG="1 2 5 4 3"; ./push_swap $$ARG | ./.tools/checker_linux $$ARG
+	@ARG="5 4 2 1 3"; ./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG
+	@ARG="1 2 5 4 3"; ./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG
 run_tests: $(NAME)
 	@echo "$(YELLOW)Testing $(SIZE) values$(RESET)"
 	@for i in $$(seq $(COUNT)); do \
 		ARG="`seq $(SIZE) | shuf | tr '\n' ' '`"; \
-		result=$$(./push_swap $$ARG | ./.tools/checker_linux $$ARG); \
+		result=$$(./$(NAME) $$ARG | $(CHECKER_PATH) $$ARG); \
 		if [ "$$result" = "OK" ]; then \
 			echo -n "$(GREEN)$$result $(RESET)"; \
 		else \
@@ -93,7 +94,7 @@ run_bench: $(NAME)
 	@total=0; max=0; min=999999; \
 	for i in $$(seq $(COUNT)); do \
 		ARG="`seq $(SIZE) | shuf | tr '\n' ' '`"; \
-		lines=$$(./push_swap $$ARG | wc -l); \
+		lines=$$(./$(NAME) $$ARG | wc -l); \
 		total=$$((total + lines)); \
 		if [ $$lines -gt $$max ]; then max=$$lines; fi; \
 		if [ $$lines -lt $$min ]; then min=$$lines; fi; \
