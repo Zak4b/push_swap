@@ -1,4 +1,5 @@
 NAME = push_swap
+CHECKER_NAME = checker
 CHECKER_PATH = ./.tools/checker_linux
 
 GREEN = \033[32m
@@ -15,13 +16,15 @@ SOURCES = \
 		stack.c \
 		stack2.c \
 		utils.c \
+		utils2.c \
 		push.c \
 		swap.c \
 		rotate.c \
 		reverse_rotate.c \
 		sort.c \
 		group_sort.c \
-		groups.c
+		groups.c \
+		smart_rotate.c
 
 BONUS_SOURCES = $(filter-out main.c, $(SOURCES)) checker.c
 
@@ -34,7 +37,12 @@ $(NAME): $(LIBFT) $(OBJS)
 	@cc $(FLAGS) -o $(NAME) $(OBJS) $(LIBFT)
 	@echo "$(GREEN)Compilation finished successfully!$(RESET)"
 
-all: $(NAME) bonus
+$(CHECKER_NAME): $(LIBFT) $(BONUS_OBJS)
+	@echo "$(GREEN)Compiling $(CHECKER_NAME)...$(RESET)"
+	@cc $(FLAGS) -o $(CHECKER_NAME) $(BONUS_OBJS) $(LIBFT)
+	@echo "$(GREEN)Compilation finished successfully!$(RESET)"
+
+all: $(NAME) $(CHECKER_NAME)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
@@ -58,8 +66,7 @@ fclean: clean
 
 re: fclean $(NAME)
 
-bonus: $(LIBFT) $(BONUS_OBJS)
-	cc $(FLAGS) -o checker -D DISPLAY_INSTRUCTIONS=0 $(BONUS_OBJS) $(LIBFT)
+bonus: $(CHECKER_NAME)
 
 test_input: $(NAME)
 	@ARG="-8 -12"; ./$(NAME) $$ARG

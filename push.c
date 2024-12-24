@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:38:25 by asene             #+#    #+#             */
-/*   Updated: 2024/12/21 15:07:41 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/24 10:35:33 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	push_to_a(t_vars *vars)
 		vars->count_a++;
 		vars->count_b--;
 	}
-	ft_putendl_fd("pa", 1);
+	if (vars->display_instructions)
+		ft_putendl_fd("pa", 1);
 }
 
 void	push_to_b(t_vars *vars)
@@ -45,5 +46,6 @@ void	push_to_b(t_vars *vars)
 		vars->count_b++;
 		vars->count_a--;
 	}
-	ft_putendl_fd("pb", 1);
+	if (vars->display_instructions)
+		ft_putendl_fd("pb", 1);
 }

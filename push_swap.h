@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:02:29 by asene             #+#    #+#             */
-/*   Updated: 2024/12/21 15:39:51 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/24 11:17:46 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_vars
 	int		*sorted;
 	int		n_group;
 	int		*bounds;
+	int		display_instructions;
 }	t_vars;
 
 t_stack		*stack_new(int n);
@@ -64,6 +65,10 @@ void		group_sort(t_vars *vars);
 int			check_atoi(int n, char *s);
 int			find_pos(t_stack *s, int value);
 int			get_sorted_pos(t_vars *vars, int value);
+void		clean_exit(t_vars *vars, int exit_code);
+void		fill_stack(int argc, char **argv, t_vars *vars);
+int			*stack_to_array(t_stack *s);
+
 void		smart_rotate_a(t_vars *vars, int rot_1, int rot_2);
 void		smart_rotate_b(t_vars *vars, int rot_1, int rot_2);
 #endif
