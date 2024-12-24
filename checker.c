@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:01:38 by asene             #+#    #+#             */
-/*   Updated: 2024/12/24 11:25:02 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/24 15:27:50 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,14 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 	t_list	*instructions;
 
+	if (argc < 2)
+		return (0);
 	init_vars(&vars);
+	fill_stack(argc, argv, &vars);
 	instructions = NULL;
 	read_instruction(&instructions);
-	fill_stack(argc, argv, &vars);
-	exec(&vars, instructions);
+	if (instructions)
+		exec(&vars, instructions);
 	if (is_sorted(vars.a) && stack_size(vars.b) == 0)
 		ft_putendl_fd("OK", 1);
 	else
