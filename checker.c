@@ -6,7 +6,7 @@
 /*   By: asene <asene@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:01:38 by asene             #+#    #+#             */
-/*   Updated: 2024/12/24 15:27:50 by asene            ###   ########.fr       */
+/*   Updated: 2024/12/26 21:30:22 by asene            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_vars(t_vars *vars)
 	vars->display_instructions = 0;
 }
 
-void	exec_rotate(t_vars *vars, t_list *inst)
+int	exec_rotate(t_vars *vars, t_list *inst)
 {
 	if (ft_strncmp((char *)inst->content, "ra\n", 3) == 0)
 		rotate_a(vars);
@@ -39,14 +39,23 @@ void	exec_rotate(t_vars *vars, t_list *inst)
 		rev_rotate_b(vars);
 	else if (ft_strncmp((char *)inst->content, "rrr\n", 4) == 0)
 		rev_rotate_both(vars);
+	else
+		return (0);
+	return (1);
 }
 
 void	exec(t_vars *vars, t_list *inst)
 {
+	t_list	*start;
+
+	start = inst;
 	while (inst)
 	{
-		if (((char *)inst->content)[0] == 'r')
-			exec_rotate(vars, inst);
+		if (((char *)inst->content)[0] == 'r' && exec_rotate(vars, inst))
+		{
+			inst = inst->next;
+			continue ;
+		}
 		else if (ft_strncmp((char *)inst->content, "sa\n", 3) == 0)
 			swap_a(vars);
 		else if (ft_strncmp((char *)inst->content, "sb\n", 3) == 0)
@@ -57,6 +66,9 @@ void	exec(t_vars *vars, t_list *inst)
 			push_to_a(vars);
 		else if (ft_strncmp((char *)inst->content, "pb\n", 3) == 0)
 			push_to_b(vars);
+		else
+			return (ft_lstclear(&start, free),
+				ft_putendl_fd("Error", 2), clean_exit(vars, 1));
 		inst = inst->next;
 	}
 }
